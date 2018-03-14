@@ -1,0 +1,125 @@
+% #######################################
+% ########### FILL THESE IN #############
+% #######################################
+\def\mytitle{Coursework Report}
+\def\mykeywords{Android Studio, 2048, Game, Numbers, Android app}
+\def\myauthor{HONG HONG}
+\def\contact{40333300@napier.ac.uk}
+\def\mymodule{Mobile Application Development (SET08114)}
+% #######################################
+% #### YOU DON'T NEED TO TOUCH BELOW ####
+% #######################################
+\documentclass[10pt, a4paper]{article}
+\usepackage[a4paper,outer=1.5cm,inner=1.5cm,top=1.75cm,bottom=1.5cm]{geometry}
+\twocolumn
+\usepackage{graphicx}
+\graphicspath{{./images/}}
+%colour our links, remove weird boxes
+\usepackage[colorlinks,linkcolor={black},citecolor={blue!80!black},urlcolor={blue!80!black}]{hyperref}
+%Stop indentation on new paragraphs
+\usepackage[parfill]{parskip}
+%% Arial-like font
+\usepackage{lmodern}
+\renewcommand*\familydefault{\sfdefault}
+%Napier logo top right
+\usepackage{watermark}
+%Lorem Ipusm dolor please don't leave any in you final report ;)
+\usepackage{lipsum}
+\usepackage{xcolor}
+\usepackage{listings}
+%give us the Capital H that we all know and love
+\usepackage{float}
+%tone down the line spacing after section titles
+\usepackage{titlesec}
+%Cool maths printing
+\usepackage{amsmath}
+%PseudoCode
+\usepackage{algorithm2e}
+
+\titlespacing{\subsection}{0pt}{\parskip}{-3pt}
+\titlespacing{\subsubsection}{0pt}{\parskip}{-\parskip}
+\titlespacing{\paragraph}{0pt}{\parskip}{\parskip}
+\newcommand{\figuremacro}[5]{
+    \begin{figure}[#1]
+        \centering
+        \includegraphics[width=#5\columnwidth]{#2}
+        \caption[#3]{\textbf{#3}#4}
+        \label{fig:#2}
+    \end{figure}
+}
+
+\lstset{
+	escapeinside={/*@}{@*/}, language=C++,
+	basicstyle=\fontsize{8.5}{12}\selectfont,
+	numbers=left,numbersep=2pt,xleftmargin=2pt,frame=tb,
+    columns=fullflexible,showstringspaces=false,tabsize=4,
+    keepspaces=true,showtabs=false,showspaces=false,
+    backgroundcolor=\color{white}, morekeywords={inline,public,
+    class,private,protected,struct},captionpos=t,lineskip=-0.4em,
+	aboveskip=10pt, extendedchars=true, breaklines=true,
+	prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+	keywordstyle=\color[rgb]{0,0,1},
+	commentstyle=\color[rgb]{0.133,0.545,0.133},
+	stringstyle=\color[rgb]{0.627,0.126,0.941}
+}
+
+\thiswatermark{\centering \put(336.5,-38.0){\includegraphics[scale=0.8]{logo}} }
+\title{\mytitle}
+\author{\myauthor\hspace{1em}\\\contact\\Edinburgh Napier University\hspace{0.5em}-\hspace{0.5em}\mymodule}
+\date{}
+\hypersetup{pdfauthor=\myauthor,pdftitle=\mytitle,pdfkeywords=\mykeywords}
+\sloppy
+% #######################################
+% ########### START FROM HERE ###########
+% #######################################
+\begin{document}
+	\maketitle
+	\begin{abstract}
+	    With time goes, people's material life level is increasing day by day, more and more people are in pursuit of high quality of life. One specific reflect is various categories of mobile apps. In recent years, technology of mobile have made great progress. Mobile apps have become an important part of people's daily life. These applications are in various industries and fields because they have different functions. For example,on the one hand, people can use mobile applications to pay products, book a taxi or restaurant, and they are also helpful on working field. On the other hand, there are many entertainment applications for people to relax. The entertainment applications are an integral pare of people's lives, especially in the fast pace society. In summary, an entertainment application-2048 game is select to build. 
+		\lipsum[2]
+	\end{abstract}
+    
+	\textbf{Keywords--}{\mykeywords}
+
+	\section{Introduction}
+    2048 Game is a digital puzzle game. Its rule is simple. At the beginning, a number will generate on the chessboard randomly, the number may be 2 or 4. The player can select four directions to move the number. If it is moved successfully or it is combined with the beside number, the movement you did is regards effective. If the number on the target position is same as moving number, the two numbers will be combined together and the sum is effective score of this step. After each effective step, the empty position will generate a new number(also may be 2 or 4). You will lose the game if the chessboard is filled with numbers and you can not move effectively. Oppositely, you will win the game if you get the final sum-2048. \\ This game application is built in java language and the platform is Android Studio. In this report, I will introduce the rules of 2048 game at first, and than the processes of its realisation in details.
+    
+    
+   
+	\section{Processes of realisation}
+	First of all, we should define two Views. One is Game2048Item, it is the View of chessboard grids. Another is Game2048Layout, it is used to set all chessboard grids. Below will introduce the processes of realisation in details.
+	\subsection{Game2048Item}
+	 The  main function of Game2048Item is to display numbers, so it needs a number attribute to record the current number on chessboard. To make the interface more beautiful, different number is set to have different background colour. After setting background colours, we should print a rectangle which has five parameters, four directions and printer tool. Then we should display numbers on it. One method called Paint.getTextBounds can help to achieve this purpose. This method is used to get corresponding minimum rectangle to the drawn string, and put the minimum rectangle in Rect object. So that we can use Rect object to set the position where to display numbers.
+     \figuremacro{h}{1.JPG}{}{Game2048Item}{1.0}\\
+	 In the onDraw() method, we first determine whether mNumber is 0. The rectangle will be drawn only when mNumber is not 0, if it is 0, it will not be drawn out.
+	 \figuremacro{h}{2.JPG}{}{onDrawn method}{1.0}
+	  
+	 
+	\subsection{Game2048Layout}
+	Game2048Layout is a view to put all chessboard grids. First of all, it needs a attribute to set the number of grids per row. Then we can new correspond number of Game2048Item depends on this variable, and put them in a two-dimensional array. In addition, we need two boolean objects. One is used to make sure if the combination happened, another is used to make sure if the movement happened. Finally, we do corresponding operations rely on the two variables.
+	\figuremacro{h}{3.JPG}{}{Game2048Layout}{1.0}\\
+	Next step is to draw the grid and numbers on the grid during initialisation. Setting the number and width of grids in onMeasure() method at first. Secondly, draw the grids and numbers on grids based on the variables set above in the onLayout() method. And generateNum() method is used to generate number on random position randomly.
+	\figuremacro{h}{4.JPG}{}{Generate grids and numbers }{1.0}\\
+   After drawing a grid, we need to monitor the grids. According to the user's gestures, to perform the corresponding operation. Although the system provides us with an interface to monitor touch events, namely OnTouchListener, we can use it to monitor some simple operations, such as down, up and so on. But if the gestures we want to monitor are more complex, this interface is not helpful anymore. At this time we can use the GestureDetector class provided by Android, through which we can monitor some complex gestures. Firstly,an enumeration class was prepared to save the corresponding gestute,and then logically judge the user's gesture in the onFling() methon of the GestureDetector class.Then the gesture is passed into the action() method for the specific move merge operation.The specific logic is using for loop on one row/column and get the value of array.By getRowlndexByAction() method and getCollndexByAction() method,based on user's gesture,travel grids to get coordinate on x and y axis of the array which does not equal 0. Then based on these two coordinates to take out the value of array and put it into a temporary array.This array will be compared with previous array,if they are not same ,isMoveHapped will be set to true. Then two adjacent values will be compared, if they are same, they will be merged and isMergeHappen will be set to true. After looping through one row/column, it will enter the next loop and repeat above operation.
+  \begin{lstlisting}[Determination method]
+  private boolean ifFull() {
+    for(int i = 0; i < mColumn; i++){
+        for(int j = 0 ; j < mColumn; j++){
+            Game2048Item item = gameItems[i][j];
+            if(item.getNumber() == 0){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+\end{lstlisting}
+    Finally, we need a method to determine if the game is ended. isFull() method is used to check if the chessboard is full and game will be over when the chessboard is full.
+
+
+    \section{Conclusion}	
+    In conclusion, logic is the most important part of this application. It has two views-Game2048Item and Game2048Item. Game2048Item has an important attribute-number. The onDraw method draws background and display numbers by number attribute. And number travel setNumber for setting. The Game2048Layout is the main class for functions. We stored all items in this class and set some attributes of item. It also implements the monitor function and corresponding operations. For instance, it is able to determine if need to generation a new number. To implement the function of redraw item, we used for loop. In essence,it is a two-layer cycle with an outer loop code cycle number,and there are three loops in the inner layer. The first loop is used to take out each row with numbers and temporarily store it. The second one is used for looping to determine if a move has occurred. Finally, determine if it has empty grids on chessboard, full means game is over.
+    \bibliographystyle{ieeetr}
+
+		
+\end{document}
